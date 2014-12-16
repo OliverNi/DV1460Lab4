@@ -1,11 +1,14 @@
 package Lab4;
 
+import Tree.FileTree;
+
 import java.io.ByteArrayOutputStream;
 import java.io.IOException;
 
 public class Filesystem
 {
   private BlockDevice m_BlockDevice;
+  private FileTree fileTree;
   public static int BLOCK_SIZE = 512;
   private String currentDir = "/";
   public Filesystem(BlockDevice p_BlockDevice)
@@ -16,7 +19,7 @@ public class Filesystem
   public String format()
     {
       m_BlockDevice = new MemoryBlockDevice();
-      createRoot(m_BlockDevice);
+      fileTree = new FileTree();
       return "Diskformat sucessfull";
     }
 
@@ -124,51 +127,5 @@ public class Filesystem
         }
     }
 
-  private boolean setName(byte[] block, String name){
-    return false;
-  }
-
-  private boolean setSize(byte[] sizeInBytes, int size){
-    return false;
-  }
-
-  private byte[] createEmptyBlock(int type, int parentId, int id, int nextBlock, String name, int size){
-    byte[] header = new byte[4];
-    byte[] nameInBytes = new byte[40];
-    byte[] sizeInBytes = new byte[5];
-    byte[] data = new byte[471];
-    //Set root as map
-    header[0] = (byte)type;
-    //Set parentId - No parent (0)
-    header[1] = (byte)parentId;
-    //Set id
-    header[2] = (byte)id;
-    //Set nextBlock (No next block)
-    header[3] = (byte)nextBlock;
-    //Set mapName
-    setName(nameInBytes, name);
-    //Set size (one block)
-    setSize(sizeInBytes, BLOCK_SIZE);
-
-    //@TODO Maybe assign data
-
-
-    ByteArrayOutputStream outputStream = new ByteArrayOutputStream( );
-    try {
-      outputStream.write(header);
-      outputStream.write(nameInBytes);
-      outputStream.write(sizeInBytes);
-      outputStream.write(data);
-    } catch (IOException e) {
-      e.printStackTrace();
-    }
-    return outputStream.toByteArray();
-  }
-  /**
-   * Assign root
-   */
-  private void createRoot(BlockDevice m_abContents) {
-    m_abContents.writeBlock(0, createEmptyBlock(2, 0, 1, 0, "/", BLOCK_SIZE));
-  }
 
 }

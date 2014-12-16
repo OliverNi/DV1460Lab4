@@ -10,9 +10,14 @@ import java.util.TreeMap;
  */
 public class FileTree {
     Folder root;
+    Boolean[] allocatedBlocks = new Boolean[250];
+
 
     public FileTree(){
         root = new Folder(null, "/");
+        for (int i = 0; i < 250; i++) {
+            allocatedBlocks[i] = false;
+        }
     }
 
     public ArrayList<Integer> getBlockPositions(String[] path){
