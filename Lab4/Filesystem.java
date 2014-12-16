@@ -116,7 +116,7 @@ public class Filesystem
 
   public String pwd()
     {
-      return "/unknown/";
+      return this.currentDir;
     }
 
   private void dumpArray(String[] p_asArray)
