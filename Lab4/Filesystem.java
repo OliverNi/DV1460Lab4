@@ -7,6 +7,7 @@ public class Filesystem
 {
   private BlockDevice m_BlockDevice;
   public static int BLOCK_SIZE = 512;
+  private String currentDir = "/";
   public Filesystem(BlockDevice p_BlockDevice)
     {
       m_BlockDevice=p_BlockDevice;
