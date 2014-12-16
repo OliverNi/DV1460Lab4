@@ -39,6 +39,20 @@ public class FileTree {
             return false;
     }
 
+    public ArrayList<String> getChildren(String[] path){
+        ArrayList<String> children = new ArrayList<String>();
+        Folder node = (Folder) getNode(path);
+        if (node instanceof Folder) {
+            for (int i = 0; i < node.children.size(); i++) {
+                children.add(node.children.entrySet().iterator().next().getValue().name);
+
+            }
+            return children;
+        } else {
+            return null;
+        }
+    }
+
     private Node getNode(String[] path){
         Node walker = root;
 
