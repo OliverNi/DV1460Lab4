@@ -15,6 +15,7 @@ public class Filesystem
   public String format()
     {
       m_BlockDevice = new MemoryBlockDevice();
+      createRoot(m_BlockDevice);
       return "Diskformat sucessfull";
     }
 
@@ -165,8 +166,8 @@ public class Filesystem
   /**
    * Assign root
    */
-  private void createRoot(MemoryBlockDevice m_abContents) {
-    createEmptyBlock(2, 0, 1, 0, "/", BLOCK_SIZE);
+  private void createRoot(BlockDevice m_abContents) {
+    m_abContents.writeBlock(0, createEmptyBlock(2, 0, 1, 0, "/", BLOCK_SIZE));
   }
 
 }
