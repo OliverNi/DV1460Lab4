@@ -1,9 +1,12 @@
 package Lab4;
 
+import java.io.ByteArrayOutputStream;
+import java.io.IOException;
+
 public class Filesystem
 {
   private BlockDevice m_BlockDevice;
-
+  public static int BLOCK_SIZE = 512;
   public Filesystem(BlockDevice p_BlockDevice)
     {
       m_BlockDevice=p_BlockDevice;
@@ -118,5 +121,49 @@ public class Filesystem
           System.out.print(p_asArray[nIndex]+"=>");
         }
     }
+
+  private boolean setName(byte[] block, String name){
+    return false;
+  }
+
+  private boolean setSize(byte[] sizeInBytes, int size){
+    return false;
+  }
+  /**
+   * Assign root
+   */
+  private void createRoot(MemoryBlockDevice m_abContents){
+    byte[] header = new byte[4];
+    byte[] name = new byte[40];
+    byte[] sizeInBytes = new byte[5];
+    byte[] data = new byte[471];
+    //Set root as map
+    header[0] = 2;
+    //Set parentId - No parent (0)
+    header[1] = 0;
+    //Set id
+    header[2] = 1;
+    //Set nextBlock (No next block)
+    header[3] = 0;
+    //Set mapName
+    setName(name, "/");
+    //Set size (one block)
+    setSize(sizeInBytes, BLOCK_SIZE);
+
+    //@TODO Maybe assign data
+
+
+    ByteArrayOutputStream outputStream = new ByteArrayOutputStream( );
+    try {
+      outputStream.write(header);
+      outputStream.write(name);
+      outputStream.write(sizeInBytes);
+      outputStream.write(data);
+    } catch (IOException e) {
+      e.printStackTrace();
+    }
+
+    m_abContents.writeBlock(0, outputStream.toByteArray());
+  }
 
 }

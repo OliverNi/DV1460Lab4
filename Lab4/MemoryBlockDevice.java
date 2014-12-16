@@ -4,6 +4,14 @@ public class MemoryBlockDevice extends BlockDevice
 {
   byte[][] m_abContents=new byte[250][512];
 
+  public MemoryBlockDevice(){
+    //Format filesystem
+    for (int i = 1; i < m_abContents.length; i++){
+      //Set Block as not used. (First bit == 0)
+      m_abContents[i][0] = 0;
+    }
+  }
+
   public int writeBlock(int p_nBlockNr,byte[] p_abContents)
     {
       if(p_nBlockNr>249 || p_nBlockNr<0)
