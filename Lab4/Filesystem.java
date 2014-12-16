@@ -11,7 +11,8 @@ public class Filesystem
 
   public String format()
     {
-      return new String("Diskformat sucessfull");
+      m_BlockDevice = new MemoryBlockDevice();
+      return "Diskformat sucessfull";
     }
 
   public String ls(String[] p_asPath)
@@ -19,7 +20,7 @@ public class Filesystem
       System.out.print("Listing directory ");
       dumpArray(p_asPath);
       System.out.print("");
-      return new String("");
+      return "";
     }
 
 
@@ -28,7 +29,7 @@ public class Filesystem
       System.out.print("Creating file ");
       dumpArray(p_asPath);
       System.out.print("");
-      return new String("");
+      return "";
     }
 
   public String cat(String[] p_asPath)
@@ -36,19 +37,19 @@ public class Filesystem
       System.out.print("Dumping contents of file ");
       dumpArray(p_asPath);
       System.out.print("");
-      return new String("");
+      return "";
     }
 
   public String save(String p_sPath)
     {
       System.out.print("Saving blockdevice to file "+p_sPath);
-      return new String("");
+      return "";
     }
 
   public String read(String p_sPath)
     {
       System.out.print("Reading file "+p_sPath+" to blockdevice");
-      return new String("");
+      return "";
     }
 
   public String rm(String[] p_asPath)
@@ -56,7 +57,7 @@ public class Filesystem
       System.out.print("Removing file ");
       dumpArray(p_asPath);
       System.out.print("");
-      return new String("");
+      return "";
     }
 
   public String copy(String[] p_asSource,String[] p_asDestination)
@@ -66,7 +67,7 @@ public class Filesystem
       System.out.print(" to ");
       dumpArray(p_asDestination);
       System.out.print("");
-      return new String("");
+      return "";
     }
 
   public String append(String[] p_asSource,String[] p_asDestination)
@@ -76,7 +77,7 @@ public class Filesystem
       System.out.print(" to ");
       dumpArray(p_asDestination);
       System.out.print("");
-      return new String("");
+      return "";
     }
 
   public String rename(String[] p_asSource,String[] p_asDestination)
@@ -86,7 +87,7 @@ public class Filesystem
       System.out.print(" to ");
       dumpArray(p_asDestination);
       System.out.print("");
-      return new String("");
+      return "";
     }
 
   public String mkdir(String[] p_asPath)
@@ -94,7 +95,7 @@ public class Filesystem
       System.out.print("Creating directory ");
       dumpArray(p_asPath);
       System.out.print("");
-      return new String("");
+      return "";
     }
 
   public String cd(String[] p_asPath)
@@ -102,12 +103,12 @@ public class Filesystem
       System.out.print("Changing directory to ");
       dumpArray(p_asPath);
       System.out.print("");
-      return new String("");
+      return "";
     }
 
   public String pwd()
     {
-      return new String("/unknown/");
+      return "/unknown/";
     }
 
   private void dumpArray(String[] p_asArray)
