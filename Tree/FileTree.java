@@ -23,12 +23,24 @@ public class FileTree {
             return null;
     }
 
+    public boolean createDirectory(String[] path){
+        String name = path[path.length-1];
+        Node parent = getParentFolder(path);
+        if (parent != null){
+            ((Folder)parent).addChild(new Folder(parent, name));
+            return true;
+        }
+        else
+            return false;
+    }
+
     private Node getNode(String[] path){
         Node walker = root;
 
         for (String p : path){
-            if (walker instanceof Folder)
-                walker = root.getChild(p);
+            if (walker instanceof Folder) {
+                walker = ((Folder) walker).getChild(p);
+            }
             else{
                 return null;
             }
@@ -36,4 +48,20 @@ public class FileTree {
 
         return walker;
     }
+
+    private Node getParentFolder(String[] path){
+        Node walker = root;
+        for (int i = 0; i < path.length-1; i++){
+            if (walker instanceof Folder){
+                walker = ((Folder) walker).getChild(path[i]);
+            }
+            else {
+                return null;
+            }
+        }
+
+        return walker;
+    }
+
+
 }
