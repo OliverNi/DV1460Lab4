@@ -31,6 +31,7 @@ public class FileTree {
     }
 
     public boolean createDirectory(String[] path){
+
         String name = path[path.length-1];
         Node parent = getParentFolder(path);
         if (parent != null){
@@ -109,7 +110,15 @@ public class FileTree {
      */
     public boolean cd(String[] path){
         for (String p : path){
-            if (currentDir.getChild(p) instanceof Folder){
+            if (p == "..") {
+                if (currentDir.parent != null) {
+                    currentDir = (Folder)currentDir.parent;
+                }
+                else {
+                    return false;
+                }
+            }
+            else if (currentDir.getChild(p) instanceof Folder){
                 currentDir = (Folder)currentDir.getChild(p);
             }
             else
