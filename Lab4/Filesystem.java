@@ -4,6 +4,7 @@ import Tree.FileTree;
 
 import java.io.ByteArrayOutputStream;
 import java.io.IOException;
+import java.util.ArrayList;
 
 public class Filesystem
 {
@@ -27,7 +28,12 @@ public class Filesystem
     {
       System.out.print("Listing directory ");
       dumpArray(p_asPath);
-      System.out.print("");
+      ArrayList<String> lsList = fileTree.getChildren(mergeStringArr(currentDir.split("/"), p_asPath));
+      for (int i = 0; i < lsList.size(); i++){
+        if (i != 0 && (i % 5) == 0)
+          System.out.println();
+        System.out.print(lsList.get(i));
+      }
       return "";
     }
 
