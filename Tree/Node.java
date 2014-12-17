@@ -4,8 +4,8 @@ package Tree;
  * Created by Oliver on 2014-12-16.
  */
 public abstract class Node {
-    private Node parent;
-    private String name;
+    protected Node parent;
+    protected String name;
     public Node() {
         this(null, "");
     }
