@@ -33,7 +33,7 @@ public class FileTree {
 
     public boolean createDirectory(String[] path){
         String name = path[path.length-1];
-        Node parent = getParentFolder(path);
+        Node parent = addDirPaths(currentDir, (removeLast(path)));
         if (parent != null){
             ((Folder)parent).addChild(new Folder(parent, name));
             return true;
@@ -56,16 +56,6 @@ public class FileTree {
         } else {
             return null;
         }
-
-        /*
-
-        for(Map.Entry<String,Integer> entry : treeMap.entrySet()) {
-            String key = entry.getKey();
-            Integer value = entry.getValue();
-
-            System.out.println(key + " => " + value);
-        }
-        */
     }
 
     private Node getNode(Node startPath, String[] path){
