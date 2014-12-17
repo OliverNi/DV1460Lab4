@@ -37,6 +37,10 @@ public class Folder extends Node {
         return children.get(name);
     }
 
+    public Node removeChild(String name){
+        return children.remove(name);
+    }
+
     public int getSize(){
         int size = 0;
         for (int i = 0; i < children.size(); i++)

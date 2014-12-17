@@ -22,13 +22,14 @@ public class FileTree {
         }
     }
 
+    /*
     public ArrayList<Integer> getBlockPositions(String[] path){
         Node file = getNode(path);
         if (file instanceof File)
             return ((File) file).getBlocks();
         else
             return null;
-    }
+    }*/
 
     public boolean createDirectory(String[] path){
         String name = path[path.length-1];
@@ -67,7 +68,7 @@ public class FileTree {
         */
     }
 
-    private Node getNode(String[] path){
+    private Node getNode(Node startPath, String[] path){
         Node walker = currentDir;
 
         for (int i = 0; i < path.length; i++){
@@ -90,9 +91,12 @@ public class FileTree {
 
     private String[] removeLast(String[] arr){
         String[] newArr = new String[arr.length-1];
+
         for (int i = 0; i < arr.length-1; i++){
             newArr[i] = arr[i];
         }
+
+        return newArr;
     }
 
     private Node getParentFolder(String[] path){
@@ -188,7 +192,22 @@ public class FileTree {
         return path;
     }
 
-    public boolean renameFile(String[] newPath){
+    public boolean renameFile(String[] oldPath, String[] newPath){
+        Node oldPathNode = getNode(currentDir, oldPath);
+        Folder newPathNode = addDirPaths(currentDir, removeLast(newPath));
+        String newName = newPath[newPath.length-1];
 
+        if (oldPathNode == null || newPathNode == null)
+            return false;
+
+        //Remove child from current directory
+        ((Folder)oldPathNode.getParent()).removeChild(oldPathNode.getName());
+
+        //Rename and move to new directory
+        ((File)oldPathNode).rename(newName);
+        oldPathNode.setParent(newPathNode);
+        ((Folder)oldPathNode.getParent()).addChild(oldPathNode);
+
+        return true;
     }
 }
