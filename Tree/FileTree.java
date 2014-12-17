@@ -117,4 +117,24 @@ public class FileTree {
         }
         return true;
     }
+
+    // returns a string with the working directory
+    public String currentPath(){
+        Folder walker = currentDir;
+        String path = new String();
+        if (walker == root){
+            path = "/";
+        }
+        else {
+            while (walker != null){
+                if (walker != root){
+                    path = "/" + walker.name + path;
+                }
+                walker = (Folder) walker.parent;
+            }
+        }
+
+
+        return path;
+    }
 }
