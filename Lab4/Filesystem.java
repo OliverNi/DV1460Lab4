@@ -114,12 +114,17 @@ public class Filesystem
 
       String[] path = mergeStringArr(currentDir.split("/"), p_asPath);
 
-      currentDir = "";
-      for (String p : path) {
-        currentDir += "/" + p;
-      }
 
-      return "";
+      if (fileTree.isValidPath(path)){
+        currentDir = "";
+        for (String p : path) {
+          currentDir += "/" + p;
+        }
+        return "";
+      }
+      else {
+        return "cd: " + path + ": No such directory";
+      }
     }
 
   public String pwd()
