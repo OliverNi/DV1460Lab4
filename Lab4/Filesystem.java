@@ -2,8 +2,6 @@ package Lab4;
 
 import Tree.FileTree;
 
-import java.io.ByteArrayOutputStream;
-import java.io.IOException;
 import java.util.ArrayList;
 
 public class Filesystem
@@ -134,6 +132,7 @@ public class Filesystem
         for (String p : path) {
           currentDir += "/" + p;
         }
+        fileTree.cd(p_asPath);
         return "";
       }
 
@@ -172,6 +171,7 @@ public class Filesystem
 
   private String mergeToString(String[] arr) {
     String merged = "";
+
     for (String s : arr){
       merged += s;
     }

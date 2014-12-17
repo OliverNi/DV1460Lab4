@@ -10,11 +10,13 @@ import java.util.TreeMap;
  */
 public class FileTree {
     Folder root;
+    Folder currentDir;
     Boolean[] allocatedBlocks = new Boolean[250];
 
 
     public FileTree(){
         root = new Folder(null, "/");
+        currentDir = root;
         for (int i = 0; i < 250; i++) {
             allocatedBlocks[i] = false;
         }
@@ -97,6 +99,22 @@ public class FileTree {
                 return false;
         }
 
+        return true;
+    }
+
+    /**
+     * Changes the current directory node.
+     * @param path Path from the current directory
+     * @return success of the operation
+     */
+    public boolean cd(String[] path){
+        for (String p : path){
+            if (currentDir.getChild(p) instanceof Folder){
+                currentDir = (Folder)currentDir.getChild(p);
+            }
+            else
+                return false;
+        }
         return true;
     }
 }
