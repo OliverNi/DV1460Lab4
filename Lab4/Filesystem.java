@@ -145,7 +145,7 @@ public class Filesystem
 
   public String pwd()
     {
-      return currentDir;
+      return fileTree.currentPath();
     }
 
   private void dumpArray(String[] p_asArray)
