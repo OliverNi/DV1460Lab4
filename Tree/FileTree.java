@@ -103,6 +103,30 @@ public class FileTree {
     }
 
     /**
+     * Adds a string-path to an existing node
+     * @param startPath Folder to start from
+     * @param addedPath String-path
+     * @return IF EXISTS: The directory path; ELSE: null
+     */
+    public Folder addDirPaths(Folder startPath, String[] addedPath){
+        Node walker = startPath;
+
+        for (String p : addedPath){
+            if (p.equals("..")){
+                walker = walker.getParent();
+            }
+            else if (!p.equals(".")){
+                if (((Folder)walker).getChild(p) instanceof Folder){ //@TODO Maybe NULLPOINTEREXCEPTION DUNNO
+                    walker = ((Folder)walker).getChild(p);
+                }
+                else
+                    return null;
+            }
+        }
+        return (Folder)walker;
+    }
+
+    /**
      * Changes the current directory node.
      * @param path Path from the current directory
      * @return success of the operation
