@@ -99,12 +99,16 @@ public class Filesystem
 
   public String rename(String[] p_asSource,String[] p_asDestination)
     {
-      System.out.print("Renaming file ");
-      dumpArray(p_asSource);
-      System.out.print(" to ");
-      dumpArray(p_asDestination);
+      boolean success = fileTree.renameFile(p_asSource, p_asDestination);
+      if (success) {
+        System.out.print("Renaming file ");
+        dumpArray(p_asSource);
+        System.out.print(" to ");
+        dumpArray(p_asDestination);
+      }
+      else
+        System.out.println("Something went wrong...");
 
-      System.out.print("");
       return "";
     }
 

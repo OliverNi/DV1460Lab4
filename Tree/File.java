@@ -36,8 +36,4 @@ public class File extends Node {
     public int getSize(){
         return blocks.size() * 512;
     }
-
-    public void rename(String name){
-        this.name = name;
-    }
 }

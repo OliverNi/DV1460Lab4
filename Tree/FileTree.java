@@ -194,7 +194,7 @@ public class FileTree {
         ((Folder)oldPathNode.getParent()).removeChild(oldPathNode.getName());
 
         //Rename and move to new directory
-        ((File)oldPathNode).rename(newName);
+        oldPathNode.setName(newName);
         oldPathNode.setParent(newPathNode);
         ((Folder)oldPathNode.getParent()).addChild(oldPathNode);
 
