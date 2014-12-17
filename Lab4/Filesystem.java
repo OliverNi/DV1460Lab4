@@ -109,7 +109,15 @@ public class Filesystem
       System.out.print("Creating directory ");
       dumpArray(p_asPath);
       System.out.print("");
-      return "";
+
+      String[] path = mergeStringArr(currentDir.split("/"), p_asPath);
+
+      if (fileTree.createDirectory(path)) {
+        return "Directory created";
+      }
+      else {
+        return "Something went wrong";
+      }
     }
 
   public String cd(String[] p_asPath)
