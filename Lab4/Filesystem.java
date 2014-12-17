@@ -13,6 +13,7 @@ public class Filesystem
   public Filesystem(BlockDevice p_BlockDevice)
     {
       m_BlockDevice=p_BlockDevice;
+      fileTree = new FileTree();
     }
 
   public String format()
@@ -27,6 +28,9 @@ public class Filesystem
       System.out.print("Listing directory ");
       dumpArray(p_asPath);
       ArrayList<String> lsList = fileTree.getChildren(mergeStringArr(currentDir.split("/"), p_asPath));
+      if (lsList == null) {
+        return "";
+      }
       for (int i = 0; i < lsList.size(); i++){
         if (i != 0 && (i % 5) == 0)
           System.out.println();
