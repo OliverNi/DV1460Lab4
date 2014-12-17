@@ -81,5 +81,23 @@ public class FileTree {
         return walker;
     }
 
+    /**
+     * Checks if a path is valid (Starting from root).
+     * @param path the full path (Starting from root).
+     * @return IF VALID: TRUE , ELSE: FALSE
+     */
+    public boolean isValidPath(String[] path){
+        Node walker = root;
+
+        for (String p : path){
+            if (walker instanceof Folder){
+                walker = ((Folder) walker).getChild(p);
+            }
+            else
+                return false;
+        }
+
+        return true;
+    }
 
 }
