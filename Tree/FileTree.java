@@ -42,7 +42,7 @@ public class FileTree {
     public ArrayList<String> getChildren(String[] path){
         ArrayList<String> children = new ArrayList<String>();
         Node node = getNode(path);
-        if (node instanceof Folder) {
+        if (node != null && node instanceof Folder) {
             for (int i = 0; i < ((Folder) node).children.size(); i++) {
                 children.add(((Folder)node).children.entrySet().iterator().next().getValue().name);
             }
@@ -99,5 +99,4 @@ public class FileTree {
 
         return true;
     }
-
 }
