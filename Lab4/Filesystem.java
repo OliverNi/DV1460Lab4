@@ -46,6 +46,26 @@ public class Filesystem
       System.out.print("Creating file ");
       dumpArray(p_asPath);
       System.out.print("");
+
+      /*
+      for (int i = 0; i < p_abContents.length; i++){
+        if (p_abContents[i] == 0)
+          break;
+        System.out.println(p_abContents[i]);
+      }*/
+
+      byte[] temp = new byte[512];
+      for (int i = 0; i < 512; i++){
+        temp[i] = p_abContents[i];
+      }
+
+      if (fileTree.createFile(p_asPath)){
+        ArrayList<Integer> blocks = fileTree.getFileBlocks(p_asPath);
+        m_BlockDevice.writeBlock(blocks.get(0), temp);
+
+        return "File created";
+      }
+
       return "";
     }
 

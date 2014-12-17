@@ -8,7 +8,8 @@ import java.util.ArrayList;
 public class File extends Node {
     ArrayList<Integer> blocks;
 
-    public File(){
+    public File(String name){
+        this.name = name;
         blocks = new ArrayList<Integer>();
     }
 

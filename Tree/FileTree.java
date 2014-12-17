@@ -42,6 +42,45 @@ public class FileTree {
             return false;
     }
 
+
+    public Boolean createFile(String[] path){
+        Boolean success = false;
+        int blockAdr = freeBlock();
+        if (blockAdr != -1){
+            String name = path[path.length-1];
+            Node parent = addDirPaths(currentDir, (removeLast(path)));
+            if (parent != null){
+                File file = new File(name);
+                file.addBlock(blockAdr);
+                ((Folder)parent).addChild(file);
+                allocatedBlocks[blockAdr] = true;
+                success = true;
+            }
+        }
+
+        return success;
+    }
+
+    /**
+     *
+     * @return an int of the first found free block, if not found return -1
+     */
+    private int freeBlock(){
+        for (int i = 0; i < 250; i++){
+            if (!allocatedBlocks[i]){
+                return i;
+            }
+        }
+        return -1;
+    }
+
+    public ArrayList<Integer> getFileBlocks(String[] path){
+        Node node = getNode(currentDir, path);
+        return ((File) node).getBlocks();
+    }
+
+
+
     public ArrayList<String> getChildren(String[] path){
         ArrayList<String> children = new ArrayList<String>();
         Node node = addDirPaths(currentDir, path);
@@ -69,14 +108,14 @@ public class FileTree {
                 if (((Folder)walker).getChild(path[i]) instanceof Folder){ //@TODO Maybe NULLPOINTEREXCEPTION DUNNO
                     walker = ((Folder)walker).getChild(path[i]);
                 }
-                else if (i == path[i].length() - 2){
+                else if (i == path.length - 1){
                     walker = ((Folder)walker).getChild(path[i]);
                 }
                 else
                     return null;
             }
         }
-        return (Folder)walker;
+        return walker;
     }
 
     private String[] removeLast(String[] arr){
