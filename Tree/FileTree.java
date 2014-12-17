@@ -41,11 +41,10 @@ public class FileTree {
 
     public ArrayList<String> getChildren(String[] path){
         ArrayList<String> children = new ArrayList<String>();
-        Folder node = (Folder) getNode(path);
+        Node node = getNode(path);
         if (node instanceof Folder) {
-            for (int i = 0; i < node.children.size(); i++) {
-                children.add(node.children.entrySet().iterator().next().getValue().name);
-
+            for (int i = 0; i < ((Folder) node).children.size(); i++) {
+                children.add(((Folder)node).children.entrySet().iterator().next().getValue().name);
             }
             return children;
         } else {

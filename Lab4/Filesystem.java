@@ -111,12 +111,20 @@ public class Filesystem
       System.out.print("Changing directory to ");
       dumpArray(p_asPath);
       System.out.print("");
+
+      String[] path = mergeStringArr(currentDir.split("/"), p_asPath);
+
+      currentDir = "";
+      for (String p : path) {
+        currentDir += "/" + p;
+      }
+
       return "";
     }
 
   public String pwd()
     {
-      return this.currentDir;
+      return currentDir;
     }
 
   private void dumpArray(String[] p_asArray)
@@ -126,6 +134,23 @@ public class Filesystem
           System.out.print(p_asArray[nIndex]+"=>");
         }
     }
+
+
+  private String[] mergeStringArr(String[] arr1, String[] arr2) {
+    String[] both = new String[arr1.length + arr2.length];
+
+    int index = 0;
+    for (String str : arr1) {
+      both[index++] = str;
+    }
+    for (String str : arr2) {
+      both[index++] = str;
+    }
+
+    return both;
+  }
+
+
 
 
 }
