@@ -128,8 +128,9 @@ public class Filesystem
         }
         return "";
       }
+
       else {
-        return "cd: " + path + ": No such directory";
+        return "cd: " + mergeToString(p_asPath) + ": No such directory";
       }
     }
 
@@ -161,6 +162,14 @@ public class Filesystem
     return both;
   }
 
+  private String mergeToString(String[] arr) {
+    String merged = "";
+    for (String s : arr){
+      merged += s;
+    }
+
+    return merged;
+  }
 
 
 
