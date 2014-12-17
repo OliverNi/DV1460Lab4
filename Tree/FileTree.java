@@ -55,18 +55,31 @@ public class FileTree {
     }
 
     private Node getNode(String[] path){
-        Node walker = root;
+        Node walker = currentDir;
 
-        for (String p : path){
-            if (walker instanceof Folder) {
-                walker = ((Folder) walker).getChild(p);
+        for (int i = 0; i < path.length; i++){
+            if (path[i].equals("..")){
+                walker = walker.getParent();
             }
-            else{
-                return null;
+            else if (!path[i].equals(".")){
+                if (((Folder)walker).getChild(path[i]) instanceof Folder){ //@TODO Maybe NULLPOINTEREXCEPTION DUNNO
+                    walker = ((Folder)walker).getChild(path[i]);
+                }
+                else if (i == path[i].length() - 2){
+                    walker = ((Folder)walker).getChild(path[i]);
+                }
+                else
+                    return null;
             }
         }
+        return (Folder)walker;
+    }
 
-        return walker;
+    private String[] removeLast(String[] arr){
+        String[] newArr = new String[arr.length-1];
+        for (int i = 0; i < arr.length-1; i++){
+            newArr[i] = arr[i];
+        }
     }
 
     private Node getParentFolder(String[] path){
@@ -159,7 +172,10 @@ public class FileTree {
             }
         }
 
-
         return path;
+    }
+
+    public boolean renameFile(String[] newPath){
+
     }
 }
