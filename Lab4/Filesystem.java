@@ -9,7 +9,7 @@ public class Filesystem
   private BlockDevice m_BlockDevice;
   private FileTree fileTree;
   public static int BLOCK_SIZE = 512;
-  private String currentDir = "/";
+  // private String currentDir = "/";
   public Filesystem(BlockDevice p_BlockDevice)
     {
       m_BlockDevice=p_BlockDevice;
@@ -28,7 +28,7 @@ public class Filesystem
       System.out.print("Listing directory ");
       dumpArray(p_asPath);
       System.out.println();
-      ArrayList<String> lsList = fileTree.getChildren(mergeStringArr(currentDir.split("/"), p_asPath));
+      ArrayList<String> lsList = fileTree.getChildren(p_asPath);
       if (lsList == null) {
         return "";
       }
@@ -127,7 +127,6 @@ public class Filesystem
       dumpArray(p_asPath);
       System.out.print("");
 
-      String[] path = mergeStringArr(currentDir.split("/"), p_asPath);
 
 
       if (fileTree.isValidPath(path)){
