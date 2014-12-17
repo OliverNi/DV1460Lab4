@@ -44,14 +44,27 @@ public class FileTree {
     public ArrayList<String> getChildren(String[] path){
         ArrayList<String> children = new ArrayList<String>();
         Node node = addDirPaths(currentDir, path);
-        if (node != null && node instanceof Folder) {
-            for (int i = 0; i < ((Folder) node).children.size(); i++) {
-                children.add(((Folder)node).children.entrySet().iterator().next().getValue().getName());
+        if (node != null) {
+
+            for (Map.Entry<String, Node> entry : ((Folder) node).getChildren().entrySet()){
+                String name = entry.getKey();
+                children.add(name);
             }
+
             return children;
         } else {
             return null;
         }
+
+        /*
+
+        for(Map.Entry<String,Integer> entry : treeMap.entrySet()) {
+            String key = entry.getKey();
+            Integer value = entry.getValue();
+
+            System.out.println(key + " => " + value);
+        }
+        */
     }
 
     private Node getNode(String[] path){

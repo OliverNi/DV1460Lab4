@@ -7,7 +7,7 @@ import java.util.TreeMap;
  * Created by Oliver on 2014-12-16.
  */
 public class Folder extends Node {
-    Map<String, Node> children;
+    private Map<String, Node> children;
     public Folder(Node parent, String name) {
         this.parent = parent;
         this.name = name;
@@ -42,5 +42,9 @@ public class Folder extends Node {
         for (int i = 0; i < children.size(); i++)
             size += children.entrySet().iterator().next().getValue().getSize();
         return size;
+    }
+
+    public Map<String, Node> getChildren() {
+        return children;
     }
 }
