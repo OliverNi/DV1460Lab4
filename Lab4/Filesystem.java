@@ -112,9 +112,7 @@ public class Filesystem
       dumpArray(p_asPath);
       System.out.print("");
 
-      String[] path = mergeStringArr(currentDir.split("/"), p_asPath);
-
-      if (fileTree.createDirectory(path)) {
+      if (fileTree.createDirectory(p_asPath)) {
         return "Directory created";
       }
       else {
