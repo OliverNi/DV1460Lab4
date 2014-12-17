@@ -27,6 +27,7 @@ public class Filesystem
     {
       System.out.print("Listing directory ");
       dumpArray(p_asPath);
+      System.out.println();
       ArrayList<String> lsList = fileTree.getChildren(mergeStringArr(currentDir.split("/"), p_asPath));
       if (lsList == null) {
         return "";
@@ -34,7 +35,7 @@ public class Filesystem
       for (int i = 0; i < lsList.size(); i++){
         if (i != 0 && (i % 5) == 0)
           System.out.println();
-        System.out.print(lsList.get(i));
+        System.out.print(lsList.get(i) + " ");
       }
       return "";
     }
