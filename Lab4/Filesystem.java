@@ -121,23 +121,17 @@ public class Filesystem
       }
     }
 
+
+
   public String cd(String[] p_asPath)
     {
       System.out.print("Changing directory to ");
       dumpArray(p_asPath);
       System.out.print("");
 
-
-
-      if (fileTree.isValidPath(path)){
-        currentDir = "";
-        for (String p : path) {
-          currentDir += "/" + p;
-        }
-        fileTree.cd(p_asPath);
+      if (fileTree.cd(p_asPath)){
         return "";
       }
-
       else {
         return "cd: " + mergeToString(p_asPath) + ": No such directory";
       }

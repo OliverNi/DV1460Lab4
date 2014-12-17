@@ -132,13 +132,14 @@ public class FileTree {
      * @return success of the operation
      */
     public boolean cd(String[] path){
-        for (String p : path){
-            if (currentDir.getChild(p) instanceof Folder){
-                currentDir = (Folder)currentDir.getChild(p);
-            }
-            else
-                return false;
+        Folder tmp = addDirPaths(currentDir, path);
+        if (tmp != null){
+            currentDir = tmp;
         }
+        else {
+            return false;
+        }
+
         return true;
     }
 
