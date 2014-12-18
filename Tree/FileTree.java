@@ -47,17 +47,20 @@ public class FileTree implements Serializable {
     }
 
 
-    public boolean createFile(String[] path){
+    public boolean createFile(String[] path, byte[] byteArr, BlockDevice mBlockDevice){
         Boolean success = false;
-        int blockAdr = freeBlock();
-        if (blockAdr != -1){
+        int blockNr = freeBlock();
+        if (blockNr != -1){
             String name = path[path.length-1];
             Node parent = addDirPaths(currentDir, (removeLast(path)));
             if (parent != null){
                 File file = new File(parent, name);
-                file.setBlockNr(blockAdr);
+                file.setBlockNr(blockNr);
                 ((Folder)parent).addChild(file);
-                allocatedBlocks[blockAdr] = true;
+
+                mBlockDevice.writeBlock(blockNr, byteArr);
+
+                allocatedBlocks[blockNr] = true;
                 success = true;
             }
         }

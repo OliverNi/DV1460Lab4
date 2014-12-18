@@ -59,14 +59,11 @@ public class Filesystem
         temp[i] = p_abContents[i];
       }
 
-      if (fileTree.createFile(p_asPath)){
-        ArrayList<Integer> blocks = fileTree.getFileBlocks(p_asPath);
-        m_BlockDevice.writeBlock(blocks.get(0), temp);
-
+      if (fileTree.createFile(p_asPath, temp, m_BlockDevice)){
         return "File created";
       }
 
-      return "";
+      return "error";
     }
 
   public String cat(String[] p_asPath)
