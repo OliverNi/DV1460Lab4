@@ -215,7 +215,7 @@ public class FileTree implements Serializable {
     }
 
     private Node getNode(Node startPath, String[] path){
-        Node walker = currentDir;
+        Node walker = startPath;
 
         for (int i = 0; i < path.length; i++){
             if (path[i].equals("..")){
