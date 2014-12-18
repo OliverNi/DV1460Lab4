@@ -77,7 +77,13 @@ public class FileTree implements Serializable {
 
     public ArrayList<Integer> getFileBlocks(String[] path){
         Node node = getNode(currentDir, path);
-        return ((File) node).getBlocks();
+        if (node != null && node instanceof File){
+            return ((File) node).getBlocks();
+        }
+        else {
+            return null;
+        }
+
     }
 
 

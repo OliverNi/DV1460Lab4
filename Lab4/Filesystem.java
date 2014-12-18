@@ -74,8 +74,24 @@ public class Filesystem
     {
       System.out.print("Dumping contents of file ");
       dumpArray(p_asPath);
-      System.out.print("");
-      return "";
+      System.out.println("");
+
+      ArrayList<Integer> blocks = fileTree.getFileBlocks(p_asPath);
+      if (blocks != null){
+        byte[] byteArr = m_BlockDevice.readBlock(blocks.get(0));
+
+        try {
+          String decoded = new String(byteArr, "UTF-8");
+
+          return decoded;
+        } catch (UnsupportedEncodingException e) {
+          e.printStackTrace();
+        }
+
+      }
+
+
+      return "error";
     }
 
   public String save(String p_sPath)
