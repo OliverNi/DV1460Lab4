@@ -44,7 +44,7 @@ public class FileTree implements Serializable {
     }
 
 
-    public Boolean createFile(String[] path){
+    public boolean createFile(String[] path){
         Boolean success = false;
         int blockAdr = freeBlock();
         if (blockAdr != -1){
@@ -91,7 +91,13 @@ public class FileTree implements Serializable {
         }
     }
 
-    public Boolean removeNodePath(String[] path){
+    /**
+     * Remove a node.
+     * @param path The path to the node.
+     * @return True if success.
+     */
+
+    public boolean removeNodePath(String[] path){
         Node node = getNode(currentDir, path);
         if (node != null){
             if (removeNode(node)){
@@ -101,7 +107,13 @@ public class FileTree implements Serializable {
         return false;
     }
 
-    private Boolean removeNode(Node node){
+    /**
+     * Deletes a specific node.
+     * @param node the node to be deleted.
+     * @return true if success.
+     */
+
+    private boolean removeNode(Node node){
         if (node instanceof File){
             for (int blockAdr : ((File) node).getBlocks()){
                 allocatedBlocks[blockAdr] = false;
@@ -111,6 +123,31 @@ public class FileTree implements Serializable {
         }
         else if (node instanceof Folder){
             //@TODO Handle removing a folder, not necessary but..
+        }
+        return false;
+    }
+
+    public boolean copyNode(String[] sourcePath, String[] destinationPath){
+        Node sourceNode = getNode(currentDir, sourcePath);
+        Node destinationNode = getNode(currentDir, removeLast(destinationPath));
+        if (sourceNode != null && destinationNode != null && destinationNode instanceof Folder){
+            if (sourceNode instanceof File){
+                if (this.createFile(destinationPath)){
+                    return true;
+                }
+            }
+            else if (sourceNode instanceof Folder){
+                //@TODO Handle copy of folders. Maybe maybe not..
+            }
+        }
+
+        return false;
+    }
+
+    public boolean nodeIsFile(String[] path){
+        Node node = getNode(currentDir, path);
+        if (node instanceof File){
+            return true;
         }
         return false;
     }
