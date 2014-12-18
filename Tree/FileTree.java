@@ -37,7 +37,7 @@ public class FileTree implements Serializable {
 
     public boolean createDirectory(String[] path){
         String name = path[path.length-1];
-        Node parent = addDirPaths(currentDir, (removeLast(path)));
+        Node parent = addDirPaths(currentDir, (HelpFunctions.removeLast(path)));
         if (parent != null){
             ((Folder)parent).addChild(new Folder(parent, name));
             return true;
@@ -52,7 +52,7 @@ public class FileTree implements Serializable {
         int blockNr = freeBlock();
         if (blockNr != -1){
             String name = path[path.length-1];
-            Node parent = addDirPaths(currentDir, (removeLast(path)));
+            Node parent = addDirPaths(currentDir, (HelpFunctions.removeLast(path)));
             if (parent != null){
                 File file = new File(parent, name);
                 file.setBlockNr(blockNr);
@@ -137,10 +137,9 @@ public class FileTree implements Serializable {
      * @param destinationPath path to the destination including node name.
      * @return true if successful.
      */
-
     public boolean copyNode(String[] sourcePath, String[] destinationPath, BlockDevice mBlockDevice){
         Node sourceNode = getNode(currentDir, sourcePath);
-        Node destinationNode = getNode(currentDir, removeLast(destinationPath));
+        Node destinationNode = getNode(currentDir, HelpFunctions.removeLast(destinationPath));
         if (sourceNode != null && destinationNode != null && destinationNode instanceof Folder){
             if (sourceNode instanceof File){
                 if (this.createFile(destinationPath, mBlockDevice.readBlock(((File) sourceNode).getBlockNr()), mBlockDevice)){
@@ -149,6 +148,14 @@ public class FileTree implements Serializable {
             }
             else if (sourceNode instanceof Folder){
                 //@TODO Handle copy of folders. Maybe maybe not..
+                createDirectory(destinationPath);
+
+                for (Map.Entry<String, Node> entry : ((Folder) sourceNode).getChildren().entrySet()){
+                    String[] childSourcePath = HelpFunctions.addElement(sourcePath, entry.getKey());
+                    String[] childDestinationPath = HelpFunctions.addElement(destinationPath, entry.getKey());
+                    copyNode(childSourcePath,  childDestinationPath, mBlockDevice);
+                }
+                return true;
             }
         }
 
@@ -236,15 +243,7 @@ public class FileTree implements Serializable {
         return walker;
     }
 
-    private String[] removeLast(String[] arr){
-        String[] newArr = new String[arr.length-1];
 
-        for (int i = 0; i < arr.length-1; i++){
-            newArr[i] = arr[i];
-        }
-
-        return newArr;
-    }
 
     private Node getParentFolder(String[] path){
         Node walker = root;
@@ -341,7 +340,7 @@ public class FileTree implements Serializable {
 
     public boolean renameFile(String[] oldPath, String[] newPath){
         Node oldPathNode = getNode(currentDir, oldPath);
-        Folder newPathNode = addDirPaths(currentDir, removeLast(newPath));
+        Folder newPathNode = addDirPaths(currentDir, HelpFunctions.removeLast(newPath));
         String newName = newPath[newPath.length-1];
 
         if (oldPathNode == null || newPathNode == null)
