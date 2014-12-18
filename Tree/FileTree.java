@@ -125,7 +125,10 @@ public class FileTree implements Serializable {
             return true;
         }
         else if (node instanceof Folder){
-            //@TODO Handle removing a folder, not necessary but..
+            for (Map.Entry<String, Node> entry : ((Folder) node).getChildren().entrySet()){
+                removeNode(entry.getValue());
+            }
+            ((Folder)node.getParent()).removeChild(node.getName());
         }
         return false;
     }
