@@ -160,10 +160,7 @@ public class Filesystem
       dumpArray(p_asDestination);
       System.out.println("");
 
-      if (fileTree.copyNode(p_asSource, p_asDestination)){
-        if (fileTree.nodeIsFile(p_asSource)){
-          m_BlockDevice.writeBlock(fileTree.getFileBlocks(p_asDestination).get(0), m_BlockDevice.readBlock(fileTree.getFileBlocks(p_asSource).get(0)));
-        }
+      if (fileTree.copyNode(p_asSource, p_asDestination, m_BlockDevice)){
         return "copied";
       }
 

@@ -139,12 +139,12 @@ public class FileTree implements Serializable {
      * @return true if successful.
      */
 
-    public boolean copyNode(String[] sourcePath, String[] destinationPath){
+    public boolean copyNode(String[] sourcePath, String[] destinationPath, BlockDevice mBlockDevice){
         Node sourceNode = getNode(currentDir, sourcePath);
         Node destinationNode = getNode(currentDir, removeLast(destinationPath));
         if (sourceNode != null && destinationNode != null && destinationNode instanceof Folder){
             if (sourceNode instanceof File){
-                if (this.createFile(destinationPath)){
+                if (this.createFile(destinationPath, mBlockDevice.readBlock(((File) sourceNode).getBlockNr()), mBlockDevice)){
                     return true;
                 }
             }
