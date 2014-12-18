@@ -377,9 +377,9 @@ public class FileTree implements Serializable {
         if (node instanceof File){
             byte[] block = mBlockDevice.readBlock(((File)node).getBlockNr());
             for (byte b : block){
-                size++;
                 if (b == 0)
                     return size;
+                size++;
             }
         }
         else {//Folder
