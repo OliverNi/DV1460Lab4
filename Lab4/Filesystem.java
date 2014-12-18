@@ -145,8 +145,13 @@ public class Filesystem
     {
       System.out.print("Removing file ");
       dumpArray(p_asPath);
-      System.out.print("");
-      return "";
+      System.out.println("");
+
+      if (fileTree.removeNodePath(p_asPath)){
+        return "Deleted";
+      }
+
+      return "Error";
     }
 
   public String copy(String[] p_asSource,String[] p_asDestination)

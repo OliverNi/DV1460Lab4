@@ -75,6 +75,12 @@ public class FileTree implements Serializable {
         return -1;
     }
 
+    /**
+     *
+     * @param path path to the node
+     * @return arraylist of blocks for a file or null
+     */
+
     public ArrayList<Integer> getFileBlocks(String[] path){
         Node node = getNode(currentDir, path);
         if (node != null && node instanceof File){
@@ -83,7 +89,30 @@ public class FileTree implements Serializable {
         else {
             return null;
         }
+    }
 
+    public Boolean removeNodePath(String[] path){
+        Node node = getNode(currentDir, path);
+        if (node != null){
+            if (removeNode(node)){
+                return true;
+            }
+        }
+        return false;
+    }
+
+    private Boolean removeNode(Node node){
+        if (node instanceof File){
+            for (int blockAdr : ((File) node).getBlocks()){
+                allocatedBlocks[blockAdr] = false;
+            }
+            ((Folder)node.parent).removeChild(node.name);
+            return true;
+        }
+        else if (node instanceof Folder){
+            //@TODO Handle removing a folder, not necessary but..
+        }
+        return false;
     }
 
 
