@@ -366,6 +366,33 @@ public class FileTree implements Serializable {
     }
 
     /**
+     * Returns the total bytes used by a node (including subfolders and files in folders)
+     * @param path path to the node
+     * @param mBlockDevice the BlockDevice containing blocks
+     * @return IF EXISTS: Total size of all files connected to node ; ELSE: -1.
+     */
+    public int getNodeSize(String[] path, BlockDevice mBlockDevice){
+        int size = 0;
+        Node node = getNode(currentDir, path);
+        if (node instanceof File){
+            byte[] block = mBlockDevice.readBlock(((File)node).getBlockNr());
+            for (byte b : block){
+                size++;
+                if (b == 0)
+                    return size;
+            }
+        }
+        else {//Folder
+            for (Map.Entry<String, Node> entry : ((Folder) node).getChildren().entrySet()){
+                String[] childPath = HelpFunctions.addElement(path, entry.getKey());
+                size+=getNodeSize(childPath, mBlockDevice);
+            }
+            return size;
+        }
+        return -1;
+    }
+
+    /**
      * Get the blockNumber for a file
      * @param path path to the file
      * @return IF EXISTS: The blockNr ; ELSE: -1
