@@ -6,36 +6,24 @@ import java.util.ArrayList;
  * Created by Oliver on 2014-12-16.
  */
 public class File extends Node {
-    ArrayList<Integer> blocks;
+    int blockNr;
 
     public File(Node parent, String name){
         this.parent = parent;
         this.name = name;
-        blocks = new ArrayList<Integer>();
+        blockNr = -1;
     }
 
-    /**
-     * Add the next block (OBS ORDER)
-     * @param arrayPos The block's position in the byte array.
-     */
-    public void addBlock(int arrayPos){
-        blocks.add(arrayPos);
+    public File(Node parent, String name, int blockNr) {
+        super(parent, name);
+        this.blockNr = blockNr;
     }
 
-    /**
-     * Get a block's position in the byte-array.
-     * @param pos position in children-list.
-     * @return block's position in the byte-array.
-     */
-    public int getBlock(int pos){
-        return blocks.get(pos);
+    public void setBlockNr(int blockNr) {
+        this.blockNr = blockNr;
     }
 
-    public ArrayList<Integer> getBlocks() {
-        return blocks;
-    }
-
-    public int getSize(){
-        return blocks.size() * 512;
+    public int getBlockNr() {
+        return blockNr;
     }
 }

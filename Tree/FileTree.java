@@ -55,7 +55,7 @@ public class FileTree implements Serializable {
             Node parent = addDirPaths(currentDir, (removeLast(path)));
             if (parent != null){
                 File file = new File(parent, name);
-                file.addBlock(blockAdr);
+                file.setBlockNr(blockAdr);
                 ((Folder)parent).addChild(file);
                 allocatedBlocks[blockAdr] = true;
                 success = true;
@@ -99,7 +99,6 @@ public class FileTree implements Serializable {
      * @param path The path to the node.
      * @return True if success.
      */
-
     public boolean removeNodePath(String[] path){
         Node node = getNode(currentDir, path);
         if (node != null){
@@ -115,12 +114,9 @@ public class FileTree implements Serializable {
      * @param node the node to be deleted.
      * @return true if success.
      */
-
     private boolean removeNode(Node node){
         if (node instanceof File){
-            for (int blockAdr : ((File) node).getBlocks()){
-                allocatedBlocks[blockAdr] = false;
-            }
+            allocatedBlocks[((File)node).getBlockNr()] = false;
             ((Folder)node.parent).removeChild(node.name);
             return true;
         }
@@ -183,8 +179,8 @@ public class FileTree implements Serializable {
         Node sourceNode = getNode(currentDir, sourcePath);
         Node destinationNode = getNode(currentDir, destinationPath);
         if (sourceNode != null && destinationNode != null && sourceNode instanceof File && destinationNode instanceof File){
-            byte[] sourceByteArr = mBlockDevice.readBlock(((File) sourceNode).getBlock(0));
-            byte[] destinationByteArr = mBlockDevice.readBlock(((File) destinationNode).getBlock(0));
+            byte[] sourceByteArr = mBlockDevice.readBlock(((File) sourceNode).getBlockNr());
+            byte[] destinationByteArr = mBlockDevice.readBlock(((File) destinationNode).getBlockNr());
 
             int sourceByteArrIndex = 0;
             for (int i = 0; i < 512; i++){
@@ -192,7 +188,7 @@ public class FileTree implements Serializable {
                     destinationByteArr[i] = sourceByteArr[sourceByteArrIndex++];
                 }
             }
-            mBlockDevice.writeBlock(((File) destinationNode).getBlock(0), destinationByteArr);
+            mBlockDevice.writeBlock(((File) destinationNode).getBlockNr(), destinationByteArr);
             return true;
         }
 
@@ -374,7 +370,7 @@ public class FileTree implements Serializable {
      * @param mBlockDevice the memory block device.
      * @return array of bytes.
      */
-    //@TODO Function might not be needed if not working with files larger than a block.
+   /* //@TODO Function might not be needed if not working with files larger than a block.
     private byte[] getByteArrFromFile(Node node, BlockDevice mBlockDevice){
         if (node instanceof File){
             ArrayList<Integer> blocks = ((File) node).getBlocks();
@@ -390,5 +386,5 @@ public class FileTree implements Serializable {
         }
         return null;
     }
-
+*/
 }
