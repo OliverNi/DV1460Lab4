@@ -86,8 +86,7 @@ public class FileTree implements Serializable {
      * @param path path to the node
      * @return arraylist of blocks for a file or null
      */
-
-    public ArrayList<Integer> getFileBlocks(String[] path){
+    /*public ArrayList<Integer> getFileBlocks(String[] path){
         Node node = getNode(currentDir, path);
         if (node != null && node instanceof File){
             return ((File) node).getBlocks();
@@ -95,7 +94,7 @@ public class FileTree implements Serializable {
         else {
             return null;
         }
-    }
+    }*/
 
     /**
      * Remove a node.
@@ -162,13 +161,13 @@ public class FileTree implements Serializable {
      * @return true if it is a file.
      */
 
-    public boolean nodeIsFile(String[] path){
+    /*public boolean nodeIsFile(String[] path){
         Node node = getNode(currentDir, path);
         if (node instanceof File){
             return true;
         }
         return false;
-    }
+    }*/
 
     /**
      * Append the contents of a file to another file.

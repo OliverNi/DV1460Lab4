@@ -72,7 +72,6 @@ public class Filesystem
       dumpArray(p_asPath);
       System.out.println("");
 
-      ArrayList<Integer> blocks = fileTree.getFileBlocks(p_asPath);
       int blockNr = fileTree.getBlockNr(p_asPath);
       if (blockNr != -1){
         byte[] byteArr = m_BlockDevice.readBlock(blockNr);
