@@ -368,6 +368,21 @@ public class FileTree implements Serializable {
     }
 
     /**
+     * Get the blockNumber for a file
+     * @param path path to the file
+     * @return IF EXISTS: The blockNr ; ELSE: -1
+     */
+    public int getBlockNr(String[] path){
+        Node file = getNode(currentDir, path);
+        if (file != null && file instanceof File){
+            return ((File) file).getBlockNr();
+        }
+        else {
+            return -1;
+        }
+    }
+
+    /**
      * Returns a byte array of a file.
      * @param node the file.
      * @param mBlockDevice the memory block device.
