@@ -129,6 +129,8 @@ public class Filesystem
 
         in.close();
 
+        fileTree.resetCurrentDir();
+
         return "ok";
 
       } catch (IOException e) {

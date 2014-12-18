@@ -127,6 +127,13 @@ public class FileTree implements Serializable {
         return false;
     }
 
+    /**
+     * Copies one node.
+     * @param sourcePath path to the node to be copied.
+     * @param destinationPath path to the destination including node name.
+     * @return true if successful.
+     */
+
     public boolean copyNode(String[] sourcePath, String[] destinationPath){
         Node sourceNode = getNode(currentDir, sourcePath);
         Node destinationNode = getNode(currentDir, removeLast(destinationPath));
@@ -143,6 +150,12 @@ public class FileTree implements Serializable {
 
         return false;
     }
+
+    /**
+     * Tiny function that determines if a node is a file.
+     * @param path the path to the node.
+     * @return true if it is a file.
+     */
 
     public boolean nodeIsFile(String[] path){
         Node node = getNode(currentDir, path);
@@ -311,5 +324,13 @@ public class FileTree implements Serializable {
         ((Folder)oldPathNode.getParent()).addChild(oldPathNode);
 
         return true;
+    }
+
+    /**
+     * Tiny function that resets the current directory to the root.
+     */
+
+    public void resetCurrentDir(){
+        currentDir = root;
     }
 }
