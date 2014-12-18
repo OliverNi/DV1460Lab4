@@ -73,8 +73,9 @@ public class Filesystem
       System.out.println("");
 
       ArrayList<Integer> blocks = fileTree.getFileBlocks(p_asPath);
-      if (blocks != null){
-        byte[] byteArr = m_BlockDevice.readBlock(blocks.get(0));
+      int blockNr = fileTree.getBlockNr(p_asPath);
+      if (blockNr != -1){
+        byte[] byteArr = m_BlockDevice.readBlock(blockNr);
 
         try {
           String decoded = new String(byteArr, "UTF-8");
@@ -85,7 +86,6 @@ public class Filesystem
         }
 
       }
-
 
       return "error";
     }
