@@ -1,6 +1,8 @@
 package Lab4;
 
-public class MemoryBlockDevice extends BlockDevice
+import java.io.Serializable;
+
+public class MemoryBlockDevice extends BlockDevice implements Serializable
 {
   byte[][] m_abContents=new byte[250][512];
 

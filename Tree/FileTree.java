@@ -1,5 +1,6 @@
 package Tree;
 
+import java.io.Serializable;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Map;
@@ -8,7 +9,7 @@ import java.util.TreeMap;
 /**
  * Created by Oliver on 2014-12-16.
  */
-public class FileTree {
+public class FileTree implements Serializable {
     Folder root;
     Folder currentDir;
     Boolean[] allocatedBlocks = new Boolean[250];

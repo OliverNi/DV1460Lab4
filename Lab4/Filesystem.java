@@ -2,6 +2,7 @@ package Lab4;
 
 import Tree.FileTree;
 
+import java.io.*;
 import java.util.ArrayList;
 
 public class Filesystem
@@ -80,13 +81,48 @@ public class Filesystem
   public String save(String p_sPath)
     {
       System.out.print("Saving blockdevice to file "+p_sPath);
-      return "";
+
+      ObjectOutputStream out = null;
+      try {
+        out = new ObjectOutputStream(new FileOutputStream(p_sPath));
+        out.writeObject(fileTree);
+        out.writeObject(m_BlockDevice);
+        out.close();
+
+        return "ok";
+
+      } catch (IOException e) {
+        e.printStackTrace();
+      }
+
+      return "error";
     }
 
   public String read(String p_sPath)
     {
       System.out.print("Reading file "+p_sPath+" to blockdevice");
-      return "";
+
+      ObjectInputStream in = null;
+      try {
+        in = new ObjectInputStream(new FileInputStream(p_sPath));
+        Object obj = in.readObject();
+        this.fileTree = (FileTree) obj;
+
+        obj = in.readObject();
+        this.m_BlockDevice = (MemoryBlockDevice) obj;
+
+        in.close();
+
+        return "ok";
+
+      } catch (IOException e) {
+        e.printStackTrace();
+      } catch (ClassNotFoundException e) {
+        e.printStackTrace();
+      }
+
+
+      return "error";
     }
 
   public String rm(String[] p_asPath)
