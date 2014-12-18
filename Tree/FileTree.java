@@ -364,4 +364,28 @@ public class FileTree implements Serializable {
     public void resetCurrentDir(){
         currentDir = root;
     }
+
+    /**
+     * Returns a byte array of a file.
+     * @param node the file.
+     * @param mBlockDevice the memory block device.
+     * @return array of bytes.
+     */
+    //@TODO Function might not be needed if not working with files larger than a block.
+    private byte[] getByteArrFromFile(Node node, BlockDevice mBlockDevice){
+        if (node instanceof File){
+            ArrayList<Integer> blocks = ((File) node).getBlocks();
+            byte[] byteArr = new byte[blocks.size() * 512];
+            int byteArrIndex = 0;
+            for (int block : blocks){
+                byte[] tempArr = mBlockDevice.readBlock(block);
+                for (int i = 0; i < tempArr.length; i++){
+                    byteArr[byteArrIndex++] = tempArr[i];
+                }
+            }
+            return byteArr;
+        }
+        return null;
+    }
+
 }
