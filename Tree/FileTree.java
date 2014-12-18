@@ -50,7 +50,7 @@ public class FileTree {
             String name = path[path.length-1];
             Node parent = addDirPaths(currentDir, (removeLast(path)));
             if (parent != null){
-                File file = new File(name);
+                File file = new File(parent, name);
                 file.addBlock(blockAdr);
                 ((Folder)parent).addChild(file);
                 allocatedBlocks[blockAdr] = true;
