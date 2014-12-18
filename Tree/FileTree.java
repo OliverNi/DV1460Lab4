@@ -1,5 +1,8 @@
 package Tree;
 
+import Lab4.BlockDevice;
+import Lab4.MemoryBlockDevice;
+
 import java.io.Serializable;
 import java.util.ArrayList;
 import java.util.List;
@@ -162,6 +165,34 @@ public class FileTree implements Serializable {
         if (node instanceof File){
             return true;
         }
+        return false;
+    }
+
+    /**
+     * Append the contents of a file to another file.
+     * @param sourcePath path to the source file.
+     * @param destinationPath path to the destination file.
+     * @param mBlockDevice the memory block device.
+     * @return true if successful.
+     */
+
+    public boolean appendFile(String[] sourcePath, String[] destinationPath, BlockDevice mBlockDevice){
+        Node sourceNode = getNode(currentDir, sourcePath);
+        Node destinationNode = getNode(currentDir, destinationPath);
+        if (sourceNode != null && destinationNode != null && sourceNode instanceof File && destinationNode instanceof File){
+            byte[] sourceByteArr = mBlockDevice.readBlock(((File) sourceNode).getBlock(0));
+            byte[] destinationByteArr = mBlockDevice.readBlock(((File) destinationNode).getBlock(0));
+
+            int sourceByteArrIndex = 0;
+            for (int i = 0; i < 512; i++){
+                if (destinationByteArr[i] == 0){
+                    destinationByteArr[i] = sourceByteArr[sourceByteArrIndex++];
+                }
+            }
+            mBlockDevice.writeBlock(((File) destinationNode).getBlock(0), destinationByteArr);
+            return true;
+        }
+
         return false;
     }
 

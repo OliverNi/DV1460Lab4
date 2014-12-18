@@ -181,7 +181,12 @@ public class Filesystem
       System.out.print(" to ");
       dumpArray(p_asDestination);
       System.out.print("");
-      return "";
+
+      if (fileTree.appendFile(p_asSource, p_asDestination, m_BlockDevice)){
+        return "ok";
+      }
+
+      return "error";
     }
 
   public String rename(String[] p_asSource,String[] p_asDestination)
