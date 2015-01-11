@@ -153,7 +153,7 @@ public class Filesystem
       dumpArray(p_asDestination);
       System.out.println("");
       p_asDestination = HelpFunctions.addElement(p_asDestination, p_asSource[p_asSource.length-1]);
-      if (fileTree.copyNode(p_asSource, p_asDestination, m_BlockDevice)){
+      if (fileTree.copyNode(p_asSource, p_asDestination, m_BlockDevice, false)){
         return "Copied";
       }
 
