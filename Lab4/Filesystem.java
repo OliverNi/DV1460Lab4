@@ -45,14 +45,7 @@ public class Filesystem
     {
       System.out.print("Creating file ");
       dumpArray(p_asPath);
-      System.out.print("");
-
-      /*
-      for (int i = 0; i < p_abContents.length; i++){
-        if (p_abContents[i] == 0)
-          break;
-        System.out.println(p_abContents[i]);
-      }*/
+      System.out.println("");
 
       byte[] temp = new byte[512];
       for (int i = 0; i < 512; i++){
