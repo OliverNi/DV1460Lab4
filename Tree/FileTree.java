@@ -26,15 +26,6 @@ public class FileTree implements Serializable {
         }
     }
 
-    /*
-    public ArrayList<Integer> getBlockPositions(String[] path){
-        Node file = getNode(path);
-        if (file instanceof File)
-            return ((File) file).getBlocks();
-        else
-            return null;
-    }*/
-
     public boolean createDirectory(String[] path){
         String name = path[path.length-1];
         Node parent = addDirPaths(currentDir, (HelpFunctions.removeLast(path)));
@@ -80,21 +71,6 @@ public class FileTree implements Serializable {
         }
         return -1;
     }
-
-    /**
-     *
-     * @param path path to the node
-     * @return arraylist of blocks for a file or null
-     */
-    /*public ArrayList<Integer> getFileBlocks(String[] path){
-        Node node = getNode(currentDir, path);
-        if (node != null && node instanceof File){
-            return ((File) node).getBlocks();
-        }
-        else {
-            return null;
-        }
-    }*/
 
     /**
      * Remove a node.
@@ -162,20 +138,6 @@ public class FileTree implements Serializable {
     }
 
     /**
-     * Tiny function that determines if a node is a file.
-     * @param path the path to the node.
-     * @return true if it is a file.
-     */
-
-    /*public boolean nodeIsFile(String[] path){
-        Node node = getNode(currentDir, path);
-        if (node instanceof File){
-            return true;
-        }
-        return false;
-    }*/
-
-    /**
      * Append the contents of a file to another file.
      * @param sourcePath path to the source file.
      * @param destinationPath path to the destination file.
@@ -202,8 +164,6 @@ public class FileTree implements Serializable {
 
         return false;
     }
-
-
 
     public ArrayList<String> getChildren(String[] path){
         ArrayList<String> children = new ArrayList<String>();
@@ -241,8 +201,6 @@ public class FileTree implements Serializable {
         }
         return walker;
     }
-
-
 
     private Node getParentFolder(String[] path){
         Node walker = root;
@@ -359,7 +317,6 @@ public class FileTree implements Serializable {
     /**
      * Tiny function that resets the current directory to the root.
      */
-
     public void resetCurrentDir(){
         currentDir = root;
     }
@@ -405,28 +362,4 @@ public class FileTree implements Serializable {
             return -1;
         }
     }
-
-    /**
-     * Returns a byte array of a file.
-     * @param node the file.
-     * @param mBlockDevice the memory block device.
-     * @return array of bytes.
-     */
-   /* //@TODO Function might not be needed if not working with files larger than a block.
-    private byte[] getByteArrFromFile(Node node, BlockDevice mBlockDevice){
-        if (node instanceof File){
-            ArrayList<Integer> blocks = ((File) node).getBlocks();
-            byte[] byteArr = new byte[blocks.size() * 512];
-            int byteArrIndex = 0;
-            for (int block : blocks){
-                byte[] tempArr = mBlockDevice.readBlock(block);
-                for (int i = 0; i < tempArr.length; i++){
-                    byteArr[byteArrIndex++] = tempArr[i];
-                }
-            }
-            return byteArr;
-        }
-        return null;
-    }
-*/
 }
