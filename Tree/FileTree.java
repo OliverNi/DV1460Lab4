@@ -28,8 +28,9 @@ public class FileTree implements Serializable {
 
     public boolean createDirectory(String[] path){
         String name = path[path.length-1];
+        Node node = getNode(currentDir, path);
         Node parent = addDirPaths(currentDir, (HelpFunctions.removeLast(path)));
-        if (parent != null){
+        if (parent != null && node == null){
             ((Folder)parent).addChild(new Folder(parent, name));
             return true;
         }
@@ -41,7 +42,8 @@ public class FileTree implements Serializable {
     public boolean createFile(String[] path, byte[] byteArr, BlockDevice mBlockDevice){
         Boolean success = false;
         int blockNr = freeBlock();
-        if (blockNr != -1){
+        Node node = getNode(currentDir, path);
+        if (blockNr != -1 && node == null){
             String name = path[path.length-1];
             Node parent = addDirPaths(currentDir, (HelpFunctions.removeLast(path)));
             if (parent != null){
