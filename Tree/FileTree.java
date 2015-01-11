@@ -103,6 +103,7 @@ public class FileTree implements Serializable {
                 removeNode(entry.getValue());
             }
             ((Folder)node.getParent()).removeChild(node.getName());
+            return true;
         }
         return false;
     }
