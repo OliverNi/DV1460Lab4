@@ -152,7 +152,7 @@ public class Filesystem
       System.out.print(" to ");
       dumpArray(p_asDestination);
       System.out.println("");
-      if (fileTree.copyNode(p_asSource, p_asDestination, m_BlockDevice, false)){
+      if (fileTree.copyNode(p_asSource, p_asDestination, m_BlockDevice)){
         return "Copied";
       }
 

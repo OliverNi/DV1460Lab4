@@ -114,7 +114,7 @@ public class FileTree implements Serializable {
      * @param destinationPath path to the destination including node name.
      * @return true if successful.
      */
-    public boolean copyNode(String[] sourcePath, String[] destinationPath, BlockDevice mBlockDevice, boolean source){
+    public boolean copyNode(String[] sourcePath, String[] destinationPath, BlockDevice mBlockDevice){
         Node sourceNode = getNode(currentDir, sourcePath);
         Node destinationNode = getNode(currentDir, HelpFunctions.removeLast(destinationPath));
         if (sourceNode != null && destinationNode != null && destinationNode instanceof Folder){
@@ -124,15 +124,12 @@ public class FileTree implements Serializable {
                 }
             }
             else if (sourceNode instanceof Folder){
-                if (source) {
-                    destinationPath = HelpFunctions.addElement(destinationPath, sourcePath[sourcePath.length - 1]);
-                }
                 createDirectory(destinationPath);
 
                 for (Map.Entry<String, Node> entry : ((Folder) sourceNode).getChildren().entrySet()){
                     String[] childSourcePath = HelpFunctions.addElement(sourcePath, entry.getKey());
                     String[] childDestinationPath = HelpFunctions.addElement(destinationPath, entry.getKey());
-                    copyNode(childSourcePath,  childDestinationPath, mBlockDevice, false);
+                    copyNode(childSourcePath,  childDestinationPath, mBlockDevice);
                 }
                 return true;
             }
