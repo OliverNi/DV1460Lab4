@@ -147,7 +147,6 @@ public class FileTree implements Serializable {
                 }
             }
             else if (sourceNode instanceof Folder){
-                //@TODO Handle copy of folders. Maybe maybe not..
                 createDirectory(destinationPath);
 
                 for (Map.Entry<String, Node> entry : ((Folder) sourceNode).getChildren().entrySet()){
