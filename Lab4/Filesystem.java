@@ -166,10 +166,10 @@ public class Filesystem
       dumpArray(p_asSource);
       System.out.print(" to ");
       dumpArray(p_asDestination);
-      System.out.print("");
+      System.out.println("");
 
       if (fileTree.appendFile(p_asSource, p_asDestination, m_BlockDevice)){
-        return "ok";
+        return "Append successful";
       }
 
       return "error";
