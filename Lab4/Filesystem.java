@@ -85,7 +85,7 @@ public class Filesystem
 
   public String save(String p_sPath)
     {
-      System.out.print("Saving blockdevice to file "+p_sPath);
+      System.out.println("Saving blockdevice to file "+p_sPath);
 
       ObjectOutputStream out = null;
       try {
@@ -94,7 +94,7 @@ public class Filesystem
         out.writeObject(m_BlockDevice);
         out.close();
 
-        return "ok";
+        return "Save successful";
 
       } catch (IOException e) {
         e.printStackTrace();
@@ -105,7 +105,7 @@ public class Filesystem
 
   public String read(String p_sPath)
     {
-      System.out.print("Reading file "+p_sPath+" to blockdevice");
+      System.out.println("Reading file "+p_sPath+" to blockdevice");
 
       ObjectInputStream in = null;
       try {
@@ -120,7 +120,7 @@ public class Filesystem
 
         fileTree.resetCurrentDir();
 
-        return "ok";
+        return "Read successful";
 
       } catch (IOException e) {
         e.printStackTrace();
