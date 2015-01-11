@@ -192,7 +192,7 @@ public class FileTree implements Serializable {
                 walker = walker.getParent();
             }
             else if (!path[i].equals(".")){
-                if (((Folder)walker).getChild(path[i]) instanceof Folder){ //@TODO Maybe NULLPOINTEREXCEPTION DUNNO
+                if (((Folder)walker).getChild(path[i]) instanceof Folder){
                     walker = ((Folder)walker).getChild(path[i]);
                 }
                 else if (i == path.length - 1){
@@ -252,7 +252,7 @@ public class FileTree implements Serializable {
                 walker = walker.getParent();
             }
             else if (!p.equals(".")){
-                if (((Folder)walker).getChild(p) instanceof Folder){ //@TODO Maybe NULLPOINTEREXCEPTION DUNNO
+                if (((Folder)walker).getChild(p) instanceof Folder){
                     walker = ((Folder)walker).getChild(p);
                 }
                 else
