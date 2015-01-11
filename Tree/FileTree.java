@@ -302,8 +302,9 @@ public class FileTree implements Serializable {
         Node oldPathNode = getNode(currentDir, oldPath);
         Folder newPathNode = addDirPaths(currentDir, HelpFunctions.removeLast(newPath));
         String newName = newPath[newPath.length-1];
+        Node node = getNode(currentDir, newPath);
 
-        if (oldPathNode == null || newPathNode == null)
+        if (oldPathNode == null || newPathNode == null || node != null)
             return false;
 
         //Remove child from current directory
