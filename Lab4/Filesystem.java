@@ -194,7 +194,7 @@ public class Filesystem
     {
       System.out.print("Creating directory ");
       dumpArray(p_asPath);
-      System.out.print("");
+      System.out.println("");
 
       if (fileTree.createDirectory(p_asPath)) {
         return "Directory created";
